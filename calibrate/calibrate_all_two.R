@@ -17,7 +17,7 @@ p3 = matrix(NA,8758,53333)
 print("Initilized matrix")
 library(ncdf4)
 nc_data = nc_open('wind_residual_all_locations.nc')
-wind_all=ncvar_get(nc_data,"wind_residual_all_locations")[26281:35030,]
+wind_all=ncvar_get(nc_data,"wind_residual_all_locations")[26281:35040,]
 nc_close(nc_data)
 #calibarte the variances
 print("start forloop")
