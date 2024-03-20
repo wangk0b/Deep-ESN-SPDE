@@ -51,7 +51,7 @@ delta=seq(0,1,0.01)
 #compute mean
 library(reticulate)
 np=import("numpy")
-ensembles=np$load('ESN_ensembles.npy')[,2:8750,,2]
+ensembles=np$load('ESN_ensembles.npy')[,2:8760,,2]
 loc_select = read.table("locselectR.txt",sep=",")[,1]
 loc_pred = setdiff(1:53333,loc_select)
 print(length(loc_pred))
