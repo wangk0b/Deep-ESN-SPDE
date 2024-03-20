@@ -13,7 +13,7 @@ cov_sample3 = 0
 #cov_sample3 = 0
 #p1 = matrix(NA,8750,53333)
 #p2 = matrix(NA,8749,53333)
-p3 = matrix(NA,8748,53333)
+p3 = matrix(NA,8758,53333)
 print("Initilized matrix")
 library(ncdf4)
 nc_data = nc_open('wind_residual_all_locations.nc')
@@ -48,15 +48,15 @@ for (i in 1:100){
 # }
 
  load(paste0("SPDE_predict_leadthree",i,".rda"))
- p3[,index] = ensembles[i,3:8750,]
+ p3[,index] = ensembles[i,3:8760,]
  p3[,index_all] = predict_values_all
  rm(predict_values_all)
- p3 = p3 - wind_all[3:8750,]
+ p3 = p3 - wind_all[3:8760,]
  m3 = colMeans(p3)
  p3 = sweep(p3,2,m3,FUN="-")
  s3 = apply(p3,2,sd)
  p3 = sweep(p3,2,s3,FUN="/")
- r_index=sample(1:8748,50,replace = F)
+ r_index=sample(1:8758,50,replace = F)
  for(l in r_index){
  cov_sample3 = cov_sample3 + outer(p3[l,],p3[l,])
  }

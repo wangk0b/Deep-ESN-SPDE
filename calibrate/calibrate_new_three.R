@@ -51,7 +51,7 @@ delta=seq(0,1,0.01)
 #compute mean
 library(reticulate)
 np=import("numpy")
-ensembles=np$load('ESN_ensembles.npy')[,2:8750,,2]
+ensembles=np$load('ESN_ensembles.npy')[,3:8750,,3]
 loc_select = read.table("locselectR.txt",sep=",")[,1]
 loc_pred = setdiff(1:53333,loc_select)
 print(length(loc_pred))
@@ -63,14 +63,14 @@ loc_all =cbind(loc_all,1:53333)
  index = intersect(h,v)
  m=c()
 for (j in 1:100){
-  hold = matrix(NA,8749,53333)
+  hold = matrix(NA,8758,53333)
   hold[,loc_select] = ensembles[j,,]
-  load(paste0("SPDE_predict_leadtwo",j,".rda"))
+  load(paste0("SPDE_predict_leadthree",j,".rda"))
   hold[,loc_pred] = predict_values_all
   hold = hold[,index]
   m = c(m,rowMeans(hold))
 }
-save(m,file="mtwo4p.rda")
+save(m,file="mthree4p.rda")
 #}
  
 #print(paste0("finished mean for",length(index)))

@@ -12,7 +12,7 @@ index_all =setdiff(1:53333,index)
 cov_sample2 = 0
 #cov_sample3 = 0
 #p1 = matrix(NA,8750,53333)
-p2 = matrix(NA,8749,53333)
+p2 = matrix(NA,8759,53333)
 #p3 = matrix(NA,8748,53333)
 print("Initilized matrix")
 library(ncdf4)
@@ -34,15 +34,15 @@ for (i in 1:100){
 # p1 = sweep(p1,2,s1,FUN="/")
 
  load(paste0("SPDE_predict_leadtwo",i,".rda"))
- p2[,index] = ensembles[i,2:8750,]
+ p2[,index] = ensembles[i,2:8760,]
  p2[,index_all] = predict_values_all
  rm(predict_values_all)
- p2 = p2 - wind_all[2:8750,]
+ p2 = p2 - wind_all[2:8760,]
  m2 = colMeans(p2)
  p2 = sweep(p2,2,m2,FUN="-")
  s2 = apply(p2,2,sd)
  p2 = sweep(p2,2,s2,FUN="/")
- r_index=sample(1:8749,50,replace = F)
+ r_index=sample(1:8759,50,replace = F)
  for(k in r_index){
   cov_sample2 = cov_sample2 + outer(p2[k,],p2[k,])
  }

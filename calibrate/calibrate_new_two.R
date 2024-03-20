@@ -27,6 +27,7 @@
 #load("covar_all.rda")
 #load("cov_sample.rda")
 #load("overall_colm10_leadone.rda")
+delta=seq(0,1,0.01)
 #t_m = mean(m)
 #m = sample(m,1000,replace=F)
 #r = seq(0.01,1,0.1)
@@ -50,62 +51,59 @@
 #compute mean
 library(reticulate)
 np=import("numpy")
-ensembles=np$load('ESN_ensembles.npy')[,1:8750,,1]
+ensembles=np$load('ESN_ensembles.npy')[,2:8750,,2]
 loc_select = read.table("locselectR.txt",sep=",")[,1]
 loc_pred = setdiff(1:53333,loc_select)
 print(length(loc_pred))
 load("loc_all.rda")
 loc_all =cbind(loc_all,1:53333)
 #for(i in seq(0.1,0.5,0.1)){
- print("start")
  h=loc_all[which(loc_all[,1]> 44.98 & loc_all[,1]< 45.1),3]
  v=loc_all[which(loc_all[,2]> 19.9 & loc_all[,2]< 20),3]
  index = intersect(h,v)
  m=c()
 for (j in 1:100){
-  print("ensembles start")
-  hold = matrix(NA,8750,53333)
+  hold = matrix(NA,8759,53333)
   hold[,loc_select] = ensembles[j,,]
-  load(paste0("SPDE_predict_leadone",j,".rda"))
+  load(paste0("SPDE_predict_leadtwo",j,".rda"))
   hold[,loc_pred] = predict_values_all
   hold = hold[,index]
   m = c(m,rowMeans(hold))
-  print("Done!!!")
 }
-save(m,file="m4p.rda")
-
-#
-# print(paste0("finished mean for",length(index)))
+save(m,file="mtwo4p.rda")
+#}
+ 
+#print(paste0("finished mean for",length(index)))
 
 # t_m = mean(m)
 # m = sample(m,1000,replace=F)
 # for(k in delta){
 #    print(paste0("The current shrinkage is : ",k))
-#    cov_spa = k*covar_all + (1 - k)* cov_sample
+#    cov_spa = k*covar_all + (1 - k)* cov_sample2
 
 #cov_spa = var_samp%*%cov_spa%*%var_samp
 
 #    cov_spa = sum(cov_spa[index,index])/(length(index)^2)
-#
-#    lower = t_m - 1.96 * sqrt(cov_spa)
-#    upper = t_m + 1.96 * sqrt(cov_spa)
 
-#   print(lower)
-#   print(upper)
+ #   lower = t_m - 1.96 * sqrt(cov_spa)
+ #   upper = t_m + 1.96 * sqrt(cov_spa)
 
-#  count = 0
-#  for (j in m){
- 
-#      if ( (j > lower) & (j < upper)){
- 
-#      count = count + 1
- 
-#     }
+ #  print(lower)
+ #  print(upper)
 
-#    }
+ # count = 0
+ # for (j in m){
+ 
+ #     if ( (j > lower) & (j < upper)){
+ 
+ #     count = count + 1
+ 
+ #    }
+
+ #   }
 #print(count/1000)
 
-#     }
+ #    }
 #} 
   
 
