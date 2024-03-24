@@ -30,7 +30,7 @@ registerDoParallel(cl)
 for(i in 1:3){
  y = y_predict[(i:8760),,i]
 
-result = foreach(iter = i:8750, .combine = rbind) %dopar%{
+result = foreach(iter = i:8760, .combine = rbind) %dopar%{
  library(LatticeKrig)
  fit = LatticeKrig(x, y[iter,], LKinfo = L)
  p = predict(fit,x_p)
