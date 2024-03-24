@@ -17,7 +17,7 @@ wind = torch.tensor(wind_residual[loc,:].T,dtype = torch.float32)
 num_pred = 3
 d = torch.device("cuda:0")
 result = []
-for epoch in [1,20,30,40,50]:
+for epoch in [1,5,10,20,30,40,50]:
  for i in range(num_pred):
    x_train = torch.tensor(wind[0:(26279-i),:],dtype=torch.float32)
    y_train = torch.tensor(wind[(i+1):26280,:], dtype = torch.float32)
