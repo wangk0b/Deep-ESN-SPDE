@@ -17,7 +17,7 @@ wind = torch.tensor(wind_residual[loc,:].T,dtype = torch.float32)
 num_pred = 3
 d = torch.device("cuda:0")
 result = []
-for epoch in [1,20,30,40]:
+for epoch in [1,20,30,40,50]:
  for i in range(num_pred):
    x_train = torch.tensor(wind[0:(26279-i),:],dtype=torch.float32)
    y_train = torch.tensor(wind[(i+1):26280,:], dtype = torch.float32)
@@ -34,7 +34,7 @@ for epoch in [1,20,30,40]:
    lr = 0.001
    print("Current lead is {}".format(i+1))
    if i == 0:
-     gru_model = train(train_loader, lr, 3173, epoch, d, model_type="LSTM")
+     gru_model = train(train_loader, lr, 100, epoch, d, model_type="LSTM")
    x_test, _, gru_sMAPE = evaluate(gru_model,test_loader, d)
    if epoch == 1 and i == 0:
        np.save("LSTM_predict.npy",x_test)
