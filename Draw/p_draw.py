@@ -17,6 +17,14 @@ ax.set_xticklabels(d2.keys())
 plt.savefig("r_select.pdf")
 
 
+
+loc = np.load("loc_all.npy")
+v = np.load("space_data.npy")
+plt.figure(figsize = (10,8))
+ax = plt.subplot(111)
+ax.scatter(loc[:,0],loc[:,1], c = v,marker='.',s=10)
+
+
 l_one=np.array([0.8506041,0.8375816,0.8521318,0.8420999,0.836941,0.8292243,0.8154739,0.77345514])
 l_two = np.array([1.235371,1.2161899,1.1364207,1.0829782,1.0644407,1.0576143,1.0515991,1.0470042])
 l_three =np.array([1.4802411,1.4589844,1.3537959,1.2897661,1.2676413,1.2620662,1.2596314,1.2757255])
