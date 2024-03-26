@@ -40,29 +40,33 @@ plot_grid(p1,p2,p3, nrow = 1)
 
 
 #########GRU wind
-er = c(1.5831938437545,5.34762255903767,5.2484424223651045,4.336048716306022,8.682889579011789,7.421709342598447,8.889166545603898,1.2067912019940334,0.9463513482843589,0.9045387359214176,0.9299534059503297,0.9457358762800779,1.0036847757052871,1.0131933055572837)
+er = c(0.7634559345121067,0.7475799229304365,0.7404928171611765,0.7449288317804181,0.7375141964541564,0.7339900609974385,0.7398427675024071)
+er_2 = c(0.8085478951307918,0.8713332462091662, 0.867380774205567,0.9652630602616606,0.9823513821504041,1.0168257969395371,1.1253600934655883)
 Epoch = rep(c(1,5,10,20,30,40,50),2)
 Diagnostics = rep(c("Testing Error","Training Error"),each = 7)
 
-data = data.frame(Epoch = Epoch, Error = er, group = Diagnostics)
+
+data = data.frame(Epoch = Epoch, Error = c(er_2,er), group = Diagnostics)
 
 
 # Plot
 ggplot(data, aes(x=Epoch, y=Error,group = Diagnostics ,color =Diagnostics)) + geom_line(size = 2)+
-	geom_point(size =5) +xlab("Epoch")+
-	ylab("MSPE")+theme(text = element_text(size = 20),legend.position = c(0.2,0.8))
+  geom_point(size =5) +xlab("Epoch")+
+  ylab("MSPE")+theme(text = element_text(size = 20),legend.position = c(0.2,0.8))
 ###########################LSTM
-er = c(1.402461656680709,1.654109794495521,1.8014360463214976,6.203874223117123,8.569799188991036,33.10879247465399,23.67260627145561,0.7731341852790312,0.6748397660775292,0.6580297744304986,0.6300395540500405,0.5930244635796682,0.5692446878008875,0.5456311835516959)
-Epoch = rep(c(1,5,10,20,30,40,50),2)
-Diagnostics = rep(c("Testing Error","Training Error"),each = 7)
+er = c(0.7543185143209975,0.6956355878650496,0.6866016233058577,0.6843551859754675,0.6885679989716362,0.6799518791204835,0.6660300120447675,0.6765373981047307,0.6702314173182422)
+er_2 = c(0.7290888757779221,0.638535597090049,0.6141706693208292,0.5951698781751852,0.5837238051873046,0.577252206186362,0.5727048643147992,0.5618808153184465,0.5545150484124104)
+Epoch = rep(c(1,5,10,20,30,40,50,70,100),2)
+Diagnostics = rep(c("Testing Error","Training Error"),each = 9)
 
-data = data.frame(Epoch = Epoch, Error = er, group = Diagnostics)
+data = data.frame(Epoch = Epoch, Error = c(er,er_2), group = Diagnostics)
 
 
 # Plot
 ggplot(data, aes(x=Epoch, y=Error,group = Diagnostics ,color =Diagnostics)) + geom_line(size = 2)+
-	geom_point(size =5) +xlab("Epoch")+
-	ylab("MSPE")+theme(text = element_text(size = 20),legend.position = c(0.2,0.8))
+  geom_point(size =5) +xlab("Epoch")+
+  ylab("MSPE")+theme(text = element_text(size = 20),legend.position = c(0.3,0.9))+geom_vline(xintercept=50, linetype="dashed", 
+                                                                                             color = "red", size=2)
 #######################################################
 
 ##############################################################
