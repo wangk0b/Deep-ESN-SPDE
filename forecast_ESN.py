@@ -16,7 +16,7 @@ a_u = float(sys.argv[7])
 pi_w = float(sys.argv[9])
 pi_u = float(sys.argv[9])
 bat = int(sys.argv[10])
-if bat == 8760:
+
  ncin = netCDF4.Dataset('wind_residual_all_locations.nc', 'r', format='NETCDF4')
  wind_residual = ncin.variables['wind_residual_all_locations'][:]
  print(wind_residual.shape)
@@ -24,12 +24,7 @@ if bat == 8760:
  loc = np.loadtxt("locselectR.txt", usecols=(0), delimiter=",", dtype=np.int32)-1
  wind = torch.tensor(wind_residual[loc,:],dtype = torch.float32)
  print(wind.size())
-else:
-    ncin = netCDF4.Dataset('wind_residual.nc', 'r', format='NETCDF4')
-    wind_residual = ncin.variables['wind_residual'][:]
-    print(wind_residual.shape)
-    ncin.close()
-    wind = torch.tensor(wind_residual,dtype = torch.float32)
+
 from ESN_Batch import ESN
 from data import Data
 from index import Index
