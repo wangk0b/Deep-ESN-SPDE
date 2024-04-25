@@ -38,10 +38,10 @@ index_b3 = ind[((loc[,1] > 0) & (loc[,1] < 0.5))& ((loc[,2] > 0) & (loc[,2] < 0.
 index_b4 = ind[((loc[,1] > 0.5) & (loc[,1] < 1))& ((loc[,2] > 0) & (loc[,2] < 0.5))]
 #loc = expand.grid(x,y)
 d_mat = dist(loc,diag=T,upper=T)
-H_one = as.matrix(matern(1,0.03,0.5,d_mat))
+H_one = as.matrix(matern(1,0.1,0.5,d_mat))
 diag(H_one) = 1
 
-H_two = as.matrix(matern(1,0.05,1,d_mat))
+H_two = as.matrix(matern(1,0.03,1,d_mat))
 diag(H_two) = 1
 ###################
 #sample from the two covariance matrices
