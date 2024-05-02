@@ -8,37 +8,28 @@ library(reticulate)
 
 np = import("numpy")
 
-#Loc2func=function(n){ # satellite
-#	n0=n/80
-#	loc2=matrix(0,n,2)
-#	loc2[1:(8*n0),]=rbind(cbind(runif(n0,0,0.25),runif(n0,0,0.25)),
-#			      cbind(runif(n0,0,0.25),runif(n0,0.5,0.75)),
-#			      cbind(runif(n0,0.25,0.5),runif(n0,0.25,0.5)),
-#			      cbind(runif(n0,0.25,0.5),runif(n0,0.75,1)),
-#			      cbind(runif(n0,0.5,0.75),runif(n0,0,0.25)),
-#			      cbind(runif(n0,0.5,0.75),runif(n0,0.5,0.75)),
-#			      cbind(runif(n0,0.75,1),runif(n0,0.25,0.5)),
-#			      cbind(runif(n0,0.75,1),runif(n0,0.75,1)))
-#	loc2[-(1:(8*n0)),]=rbind(cbind(runif(9*n0,0,0.25),runif(9*n0,0.25,0.5)),
-#				 cbind(runif(9*n0,0,0.25),runif(9*n0,0.75,1)),
-#				 cbind(runif(9*n0,0.25,0.5),runif(9*n0,0,0.25)),
-#				 cbind(runif(9*n0,0.25,0.5),runif(9*n0,0.5,0.75)),
-#				 cbind(runif(9*n0,0.5,0.75),runif(9*n0,0.25,0.5)),
-#				 cbind(runif(9*n0,0.5,0.75),runif(9*n0,0.75,1)),
-#				 cbind(runif(9*n0,0.75,1),runif(9*n0,0,0.25)),
-#				 cbind(runif(9*n0,0.75,1),runif(9*n0,0.5,0.75)))
-#	return(loc2)
-#}
-
+Loc1func=function(n){ # ray
+  n0=n/16
+  loc1=matrix(0,n,2)
+  loc1[1:(12*n0),]=matrix(0.25*runif(2*12*n0),12*n0,2)
+  loc1[(12*n0+1):(15*n0),]=rbind(cbind(runif(n0,0,0.25),runif(n0,0.25,0.5)),
+                                 cbind(runif(n0,0.25,0.5),runif(n0,0.25,0.5)),
+                                 cbind(runif(n0,0.25,0.5),runif(n0,0,0.25)))
+  loc1[(15*n0+1):(16*n0),]=rbind(cbind(runif(round(n0/3),0,0.5),runif(round(n0/3),0.5,1)),
+                                 cbind(runif(round(n0/3)+1,0.5,1),runif(round(n0/3)+1,0.5,1)),
+                                 cbind(runif(round(n0/3),0.5,1),runif(round(n0/3),0,0.5)))
+  return(loc1)
+}
 
 N = 3200
-
+loc=Loc1func(1e4)
+index = sample(1:1e4,3200,replace = F)
+loc = loc[index,]
 #loc = expand.grid(x,y)
 #set.seed(1)
 
 #loc = Loc2func(N)
 set.seed(0)
-loc = cbind(runif(3200,0,1),runif(3200,0,1))
 test_ind = sample(1:3200,1600,replace = F)
 test_ind = sort(test_ind)
 train_ind = setdiff(1:3200,test_ind)
