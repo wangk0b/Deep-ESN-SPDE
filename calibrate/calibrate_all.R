@@ -5,7 +5,7 @@ load("covar_all.rda")
 
 #covar = cov_sample/10
 
-covar_all =  0.64*covar_all + 0.36*cov_sample
+covar_all =  0.36*covar_all + 0.64*cov_sample
 #rm(covar)
 
 #cl=makeCluster(40)
