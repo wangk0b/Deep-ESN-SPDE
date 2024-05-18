@@ -12,7 +12,7 @@ covar_all =  0.77*covar_all + 0.23*cov_sample
 #registerDoParallel(cl)
 
 
-for(j in 1:10){
+for(j in 1:53333){
 
 
 v = covar_all[j,j]
@@ -27,7 +27,7 @@ for (i in 1:100){
 
 m = mean(loc_one)
 
-loc_one = sample(loc_one,5000,replace = F)
+#loc_one = sample(loc_one,5000,replace = F)
 
 upper = m + 1.96 * sqrt(v)
 lower = m - 1.96 * sqrt(v)
@@ -42,7 +42,7 @@ for( i in loc_one){
 
 }
 print("++++++++++++++++++++++++++++")
-print(count/5000)
+print(count/53333)
 
 }
 #stopCluster(cl)
