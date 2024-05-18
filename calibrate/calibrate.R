@@ -1,10 +1,9 @@
-for(num in 10:10){
 #location wise
-holder=array(NA,c(10,8760,50160))
+holder=array(NA,c(100,8760,50160))
 #perlocation
-enum = (1+(num-1)*10):(num*10)
+#enum = (1+(num-1)*10):(num*10)
 count = 1 
-for(i in enum){
+for(i in 1:100){
   load(paste0('SPDE_predict_leadone',i,'.rda'))
   holder[count,,] = predict_values_all
   count = count + 1
@@ -17,7 +16,7 @@ for(i in enum){
 #set.seed(1)
 index = read.table("locselectR.txt",sep=",")[,1]
 index_all =setdiff(1:53333,index)
-hold_all = array(NA,dim=c(10,8760,53333))
+hold_all = array(NA,dim=c(100,8760,53333))
 #load("subsamples.rda")
 hold_all[,,index_all]=holder
 rm(holder)
@@ -42,7 +41,7 @@ rm(nc_data)
 print("Finished assigments and loading real data")
 #normalize the ensembles
 #step one
-for(i in 1:10){
+for(i in 1:100){
  #compute the residuals
  hold_all[i,,]=hold_all[i,,]-wind_all
  #standardize
